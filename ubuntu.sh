@@ -1,4 +1,39 @@
 #!/data/data/com.termux/files/usr/bin/bash
+
+#Functions
+package() {
+    echo -e " Checking required packages..."
+    termux-setup-storage
+    if [[ `command -v pulseaudio` && `command -v proot` && `command -v wget` ]]; then
+        echo -e "\n Packages already installed."
+    else
+        packs=(pulseaudio proot wget)
+	apt update -y
+        apt upgrade -y
+        for pack in "${packs[@]}"; do
+            type -p "$pack" &>/dev/null || {
+                echo -e "\n Installing package : $pack"
+                apt install "$pack" -y
+            }
+        done
+    fi
+}
+
+sound() {
+    echo -e "\n${R} [${W}-${R}]${C} Fixing Sound Problem..."${W}
+    if [[ ! -e "$HOME/.sound" ]]; then
+        touch $HOME/.sound
+    fi
+    
+    echo "pulseaudio --start --exit-idle-time=-1" >> $HOME/.sound
+    echo "pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" >> $HOME/.sound
+}
+
+
+
+#Code
+package
+
 mkdir ubuntu && cd ubuntu
 folder=ubuntu-fs
 if [ -d "$folder" ]; then
@@ -78,4 +113,7 @@ echo "fixing shebang of $bin"
 termux-fix-shebang $bin
 echo "making $bin executable"
 chmod +x $bin
+
+sound
+
 echo "You can now launch Ubuntu with the ./${bin} script"
