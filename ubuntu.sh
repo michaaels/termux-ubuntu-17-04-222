@@ -1,4 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
+mkdir ubuntu && cd ubuntu
 folder=ubuntu-fs
 if [ -d "$folder" ]; then
 	first=1
