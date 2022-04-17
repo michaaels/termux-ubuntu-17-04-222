@@ -6,6 +6,7 @@ if [ -d "$folder" ]; then
 	echo "skipping downloading"
 fi
 distro="jammy"
+#curl https://partner-images.canonical.com/core/ | grep -o '<a href="[a-z]\+[^>"]*' | sed -ne 's/^<a href="\(.*\)/\1/p' | sed 's/\///g'
 tarball="ubuntu.tar.gz"
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
