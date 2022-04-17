@@ -20,7 +20,7 @@ package() {
 }
 
 sound() {
-    echo -e "\n${R} [${W}-${R}]${C} Fixing Sound Problem..."${W}
+    echo -e "\n Fixing Sound Problem..."${W}
     if [[ ! -e "$HOME/.sound" ]]; then
         touch $HOME/.sound
     fi
