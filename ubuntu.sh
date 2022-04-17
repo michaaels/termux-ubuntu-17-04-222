@@ -4,6 +4,7 @@ if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
+distro="jammy"
 tarball="ubuntu.tar.gz"
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
@@ -22,7 +23,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://partner-images.canonical.com/core/jammy/current/ubuntu-disco-core-cloudimg-${archurl}-root.tar.gz" -O $tarball
+		wget "https://partner-images.canonical.com/core/${distro}/current/ubuntu-${distro}-core-cloudimg-${archurl}-root.tar.gz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
